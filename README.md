@@ -19,6 +19,8 @@ I went for the GCP services that I am more familiar with, enabling a full server
 
 For an Open Source solution, I would think about using RabbitMQ for messaging, Knative for Functions and Druid for Data Warehousing. 
 
+The data will be accessed by the Data Scientists by querying the BigQuery table. GCP has great documetnation for manipulating GIS data: https://cloud.google.com/bigquery/docs/gis
+
 ## How to publish a message to PubSub
 It cannot be done via HTTP. Guide here: https://cloud.google.com/pubsub/docs/publisher
 
