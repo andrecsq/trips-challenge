@@ -41,7 +41,7 @@ Navigate to its folder
 cd trips_challenge
 ```
 
-Set up your GCP account as per the Terraform documentation: [Link](https://learn.hashicorp.com/tutorials/terraform/google-cloud-platform-build?in=terraform/gcp-get-started)
+Set up your GCP account as per the Terraform documentation on "Setting up GCP": [Link](https://learn.hashicorp.com/tutorials/terraform/google-cloud-platform-build?in=terraform/gcp-get-started)
 
 Move the created Service Account JSON on the repo's root folder as `credentials.json`
 
