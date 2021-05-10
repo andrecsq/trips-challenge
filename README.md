@@ -33,12 +33,12 @@ Navigate to your folder of preference
 
 Clone this repo 
 ```
-git clone https://github.com/andrecsq/terraform_test.git
+git clone https://github.com/andrecsq/jobsity_trips_challenge.git
 ```
 
 Navigate to its folder
 ```
-cd terraform_test
+cd jobsity_trips_challenge
 ```
 
 Set up your GCP account as per the Terraform documentation: [Link](https://learn.hashicorp.com/tutorials/terraform/google-cloud-platform-build?in=terraform/gcp-get-started)
