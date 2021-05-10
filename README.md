@@ -67,14 +67,17 @@ It cannot be done directly via HTTP. Guide here: https://cloud.google.com/pubsub
 - [x] The solution should be scalable to 100 million entries. It is encouraged to simplify the data by a data model. Please add proof that the solution is scalable.
 - [x] Use a SQL database.
 
+### Comments
+
 I grouped the data by using BigQuery's partitioning (time of day - hour) and clustering (origin, destination). Time of day filter is mandatory, but the clustering filter is not.
+The solution is Serverless, so it can scale indefinitely. 
+There isn't a centralized way to monitor messages being processed. But each service can be monitored individually via Logs Explorer. These logs are temporary, but it is possible to create a sink from any service's logs to BigQuery.
 
 ## Known Limitations
 
 - **Need to replace `' '` to `'T'` on the `datetime` field before publishing a message**
 - PubSub can have a schema. It is without a schema because Terraform doesn't currently support it.
 - PubSub doesn't guarantee deduplication, so messages on BigQuery will have duplicated data with high volume. 
-- There isn't a centralized way to monitor messages being processed. But each service can be monitored individually via Logs Explorer. These logs are temporary, but it is possible to create a sink from any service's logs to BigQuery.
 - BigQuery's clustering only works in the order of the clustered fields, which is first origin and destination second. e.g. if you filter in the query by destination and not by origin the clustering won't work.
 
 
