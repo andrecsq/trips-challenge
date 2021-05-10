@@ -21,9 +21,6 @@ For an Open Source solution, I would think about using RabbitMQ for messaging, K
 
 The data will be accessed by the Data Scientists by querying the BigQuery table. GCP has great documetnation for manipulating GIS data: https://cloud.google.com/bigquery/docs/gis
 
-## How to publish a message to PubSub
-It cannot be done via HTTP. Guide here: https://cloud.google.com/pubsub/docs/publisher
-
 ## How to create the Infrastructure
 
 Install Terraform in your system of preference: https://www.terraform.io/downloads.html
@@ -40,7 +37,11 @@ Navigate to its folder
 cd terraform_test
 ```
 
-Set up your GCP account as per the Terraform documentation: ![Link](https://learn.hashicorp.com/tutorials/terraform/google-cloud-platform-build?in=terraform/gcp-get-started), and put the created Service Account JSON on the repo's root folder
+Set up your GCP account as per the Terraform documentation: ![Link](https://learn.hashicorp.com/tutorials/terraform/google-cloud-platform-build?in=terraform/gcp-get-started)
+
+Move the created Service Account JSON on the repo's root folder as `credentials.json`
+
+Check if the local variables in the `main.tf` file are appropriate. (TODO: put `locals` on another file)
 
 Initialize terraform
 ```
@@ -52,6 +53,10 @@ Create infraestructure
 terraform apply
 ```
 
+Now you can publish messages to the PubSub topic `pubsub_topic_id` (default value `trips`) and have these topics processed and loaded to the BigQuery table (default `GIS_DATA.trips`)
+
+## How to publish a message to PubSub
+It cannot be done directly via HTTP. Guide here: https://cloud.google.com/pubsub/docs/publisher
 
 ## Mandatory features
 
@@ -66,7 +71,7 @@ I grouped the data by using BigQuery's partitioning (time of day - hour) and clu
 
 ## Known Limitations
 
-- Need to replace `' '` to `'T'` on the `datetime` field before publishing a message
+- **Need to replace `' '` to `'T'` on the `datetime` field before publishing a message**
 - PubSub can have a schema. It is without a schema because Terraform doesn't currently support it.
 - PubSub doesn't guarantee deduplication, so messages on BigQuery will have duplicated data with high volume. 
 - There isn't a centralized way to monitor messages being processed. But each service can be monitored individually via Logs Explorer. These logs are temporary, but it is possible to create a sink from any service's logs to BigQuery.
