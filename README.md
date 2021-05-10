@@ -14,7 +14,7 @@ Example data point:
 
 ### Comments
 
-I did everything first in the UI. Since the solution should be delivered in a repository, it would be very weird to have a repo full of videos/images of UI, so I decided to learn Terraform and do that way. It's probably not a best practice to have the entire project in one file, but it worked! It was very fun.
+I did everything first in the UI. Since the solution should be delivered in a repository, it would be very weird to have a repo full of videos/images of UI, so I decided to learn Terraform and do that way. It's probably not a best practice to have the entire project in one file, but it worked! It was very fun. 
 
 ## The architecture
 
@@ -83,3 +83,4 @@ It cannot be done directly via HTTP. (Guide here)[https://cloud.google.com/pubsu
 - PubSub can have a schema. It is without a schema because Terraform doesn't currently support it.
 - PubSub doesn't guarantee deduplication, so messages on BigQuery will have duplicated data with high volume. 
 - BigQuery's clustering only works in the order of the clustered fields, which is first origin and destination second. e.g. if you filter in the query by destination and not by origin the clustering won't work.
+- The message_generator is WIP
