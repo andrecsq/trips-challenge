@@ -12,6 +12,10 @@ Example data point:
 }
 ```
 
+### Comments
+
+I did everything first in the UI. Since the solution should be delivered in a repository, it would be very weird to have a repo full of videos/images of UI, so I decided to learn Terraform and do that way. It's probably not a best practice to have the entire project in one file, but it worked! It was very fun.
+
 ## The architecture
 
 I went for the GCP services that I am more familiar with, enabling a full serverless architecture. 
@@ -56,7 +60,7 @@ terraform apply
 Now you can publish messages to the PubSub topic `pubsub_topic_id` (default value `trips`) and have these topics processed and loaded to the BigQuery table (default `GIS_DATA.trips`)
 
 ## How to publish a message to PubSub
-It cannot be done directly via HTTP. Guide here: https://cloud.google.com/pubsub/docs/publisher
+It cannot be done directly via HTTP. (Guide here)[https://cloud.google.com/pubsub/docs/publisher]
 
 ## Mandatory features
 
@@ -69,9 +73,9 @@ It cannot be done directly via HTTP. Guide here: https://cloud.google.com/pubsub
 
 ### Comments
 
-I grouped the data by using BigQuery's partitioning (time of day - hour) and clustering (origin, destination). Time of day filter is mandatory, but the clustering filter is not.
-The solution is Serverless, so it can scale indefinitely. 
-There isn't a centralized way to monitor messages being processed. But each service can be monitored individually via Logs Explorer. These logs are temporary, but it is possible to create a sink from any service's logs to BigQuery.
+- I grouped the data by using BigQuery's partitioning (time of day - hour) and clustering (origin, destination). Time of day filter is mandatory, but the clustering filter is not.
+- The solution is Serverless, so it can scale indefinitely. 
+- There isn't a centralized way to monitor messages being processed. But each service can be monitored individually via Logs Explorer. These logs are temporary, but it is possible to create a sink from any service's logs to BigQuery.
 
 ## Known Limitations
 
@@ -79,5 +83,3 @@ There isn't a centralized way to monitor messages being processed. But each serv
 - PubSub can have a schema. It is without a schema because Terraform doesn't currently support it.
 - PubSub doesn't guarantee deduplication, so messages on BigQuery will have duplicated data with high volume. 
 - BigQuery's clustering only works in the order of the clustered fields, which is first origin and destination second. e.g. if you filter in the query by destination and not by origin the clustering won't work.
-
-
